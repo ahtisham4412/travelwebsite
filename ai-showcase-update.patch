@@ -1,0 +1,154 @@
+diff --git a/src/components/ai-showcase.tsx b/src/components/ai-showcase.tsx
+index cefb5bf..a3592a9 100644
+--- a/src/components/ai-showcase.tsx
++++ b/src/components/ai-showcase.tsx
+@@ -12,33 +12,39 @@ type Message = {
+   content: string;
+ };
+ 
++// --- Updated heroIdeas with user-provided image URLs ---
+ const heroIdeas = [
+   {
+     title: "Weekend Escape",
+     body: "3-day chill with nature walks, cozy stays, and local flavors.",
+     accent: "from PKR 75,000",
+-    image: "https://images.unsplash.com/photo-1593693399064-f5d43104bcb8?auto=format&fit=crop&w=900&q=80",
++    // User-provided URL for "Weekend Escape"
++    image: "https://images.unsplash.com/photo-1593693399064-f5d43104bcb8",
+   },
+   {
+     title: "Himalayan Glow",
+     body: "Sunrise over the Karakoram with lakeside tea and starry nights.",
+     accent: "from PKR 145,000",
+-    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=900&q=80",
++    // User-provided URL for "Himalayan Glow"
++    image: "https://images.unsplash.com/photo-1544551763-46a013bb70d5",
+   },
+   {
+     title: "Mediterranean Drift",
+     body: "Island-hop the turquoise coast with beach clubs and seaside tavernas.",
+     accent: "from $1,450",
+-    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=80",
++    // User-provided URL for "Mediterranean Drift"
++    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963",
+   },
+ ];
+ 
++// --- Expanded destinations array with real image URLs ---
+ const destinations = [
+   {
+     id: 1,
+     title: "Skardu Adventure",
+     location: "Skardu, Pakistan",
+-    image: "https://images.unsplash.com/photo-1552733407-5d5c46c3bb3b?auto=format&fit=crop&w=900&q=80",
++    // Real Skardu image
++    image: "https://images.unsplash.com/photo-1605540320032-9d93d3947590",
+     price: "PKR 145,000",
+     description: "Mountain trekking and lake exploration",
+   },
+@@ -46,7 +52,8 @@ const destinations = [
+     id: 2,
+     title: "Paris City Lights",
+     location: "Paris, France",
+-    image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=900&q=80",
++    // Real Paris image (Eiffel Tower/Street)
++    image: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e",
+     price: "€1,250",
+     description: "Eiffel sunsets, river cruises, and cafe hopping",
+   },
+@@ -54,7 +61,8 @@ const destinations = [
+     id: 3,
+     title: "Bali Bliss",
+     location: "Bali, Indonesia",
+-    image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80",
++    // Real Bali image (Rice Terraces)
++    image: "https://images.unsplash.com/photo-1537996194471-e657df978147",
+     price: "$980",
+     description: "Beach sunsets, temples, and jungle swings",
+   },
+@@ -62,33 +70,55 @@ const destinations = [
+     id: 4,
+     title: "New York Pulse",
+     location: "New York, USA",
+-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=900&q=80",
++    // Real New York image (Skyline)
++    image: "https://images.unsplash.com/photo-1534430480872-349838824524",
+     price: "$1,450",
+     description: "Skyline nights, Broadway shows, and food tours",
+   },
+   {
+     id: 5,
+-    title: "Hunza Serenity",
+-    location: "Hunza, Pakistan",
+-    image: "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?auto=format&fit=crop&w=900&q=80",
+-    price: "PKR 95,000",
+-    description: "Eagle’s Nest sunrise and apricot blossom walks",
++    title: "Machu Picchu Trek",
++    location: "Machu Picchu, Peru",
++    // New destination with real image
++    image: "https://images.unsplash.com/photo-1526392060635-9d6019884377",
++    price: "$1,800",
++    description: "Ancient Inca ruins and high-altitude hiking",
+   },
+   {
+     id: 6,
+-    title: "Mediterranean Coast",
+-    location: "Amalfi, Italy",
+-    image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=900&q=80",
+-    price: "€1,380",
+-    description: "Cliffside drives, lemon groves, and seaside trattorias",
++    title: "Tokyo Neon Rush",
++    location: "Tokyo, Japan",
++    // New destination with real image
++    image: "https://images.unsplash.com/photo-1536098561742-ca998e4b0bb9",
++    price: "¥180,000",
++    description: "Shibuya crossing, neon lights, and futuristic tech",
+   },
+   {
+     id: 7,
+-    title: "Istanbul Mosaic",
+-    location: "Istanbul, Türkiye",
+-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=900&q=80",
+-    price: "$1,050",
+-    description: "Bosphorus cruise, bazaars, and rooftop sunsets",
++    title: "Cape Town Coast",
++    location: "Cape Town, South Africa",
++    // New destination with real image
++    image: "https://images.unsplash.com/photo-1547993268-2d8810238813",
++    price: "R25,000",
++    description: "Table Mountain views and coastal drives",
++  },
++  {
++    id: 8,
++    title: "Santorini Sunset",
++    location: "Santorini, Greece",
++    // New destination with real image
++    image: "https://images.unsplash.com/photo-1533105079780-927234237f52",
++    price: "€1,550",
++    description: "Iconic white and blue architecture and caldera views",
++  },
++  {
++    id: 9,
++    title: "Great Barrier Dive",
++    location: "Queensland, Australia",
++    // New destination with real image
++    image: "https://images.unsplash.com/photo-1550951164-814144385148",
++    price: "A$2,200",
++    description: "Snorkeling and diving on the world's largest reef",
+   },
+ ];
+ 
+@@ -127,7 +157,7 @@ export function AIShowcase() {
+ 
+   return (
+     <section className="relative isolate overflow-hidden rounded-3xl border bg-gradient-to-br from-primary/10 via-primary/5 to-accent/10 p-6 shadow-lg sm:p-10">
+-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.4),transparent_35%),radial-gradient(circle_at_80%_0%,rgba(14,165,233,0.15),transparent_30%)]" />
++      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,0.4),transparent_35%),radial-gradient(circle_at-80%_0%,rgba(14,165,233,0.15),transparent_30%)]" />
+       <div className="relative grid items-start gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+         <div className="space-y-6">
+           <div className="flex items-center gap-2 text-sm font-medium text-primary">
+@@ -264,4 +294,3 @@ export function AIShowcase() {
+ }
+ 
+ export default AIShowcase;
+-
