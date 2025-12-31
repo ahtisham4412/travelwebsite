@@ -83,7 +83,7 @@ function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className="relative px-4 py-2 text-sm font-medium transition-colors hover:text-white"
+                  className="relative px-4 py-2 text-sm font-medium transition-colors hover:text-primary"
                 >
                   {isActive && (
                     <motion.div

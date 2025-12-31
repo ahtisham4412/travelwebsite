@@ -12,50 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Image from "next/image";
-import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
-function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
 
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
-  return (
-    <motion.div
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className={className}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 function Tours() {
   const tours = [
@@ -124,43 +84,56 @@ function Tours() {
                 key={index}
                 className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
               >
-                <div className="h-full group perspective-1000">
-                  <TiltCard className="h-full transition-all duration-500 ease-out">
-                    <Card className="h-full border-0 glass-panel overflow-hidden group">
-                      <CardHeader>
-                        <CardTitle className="text-xl font-bold flex justify-between items-start">
-                          <span className="text-white drop-shadow-md">{tour.title}</span>
-                          <span className="text-xs font-normal px-2 py-1 rounded-full bg-white/10 border border-white/5 flex items-center gap-1">
-                            <span className="block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                            Sunny
-                          </span>
-                        </CardTitle>
-                        <CardDescription className="text-gray-300">{tour.description}</CardDescription>
-                      </CardHeader>
-                      <CardContent className="p-0">
-                        <div className="relative overflow-hidden h-64 w-full">
+                <div className="h-full p-2">
+                  <CardContainer className="inter-var h-full w-full">
+                    <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-black/[0.1] w-full h-full rounded-xl p-6 border  ">
+                      <CardItem
+                        translateZ="50"
+                        className="text-xl font-bold text-gray-900 dark:text-white drop-shadow-md flex items-center justify-between w-full"
+                      >
+                        {tour.title}
+                        <span className="text-xs font-normal px-2 py-1 rounded-full bg-white/10 border border-white/5 flex items-center gap-1 text-gray-800 dark:text-gray-200">
+                          <span className="block w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                          Sunny
+                        </span>
+                      </CardItem>
+                      <CardItem
+                        as="p"
+                        translateZ="60"
+                        className="text-gray-700 dark:text-gray-300 text-sm max-w-sm mt-2"
+                      >
+                        {tour.description}
+                      </CardItem>
+                      <CardItem translateZ="100" className="w-full mt-4">
+                        <div className="relative overflow-hidden h-64 w-full rounded-xl group-hover/card:shadow-xl">
                           <Image
                             src={tour.image}
                             alt={tour.title}
                             fill
-                            className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
+                            className="object-cover group-hover/card:scale-110 transition-transform duration-500"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60 group-hover/card:opacity-40 transition-opacity duration-300" />
                         </div>
-                      </CardContent>
-                      <CardFooter className="flex justify-between items-center p-6 bg-white/5 border-t border-white/10">
-                        <span className="text-amber-400 font-bold text-lg text-glow">
+                      </CardItem>
+                      <div className="flex justify-between items-center mt-10">
+                        <CardItem
+                          translateZ={20}
+                          as="span"
+                          className="px-4 py-2 rounded-xl text-black dark:text-white text-lg font-bold text-glow"
+                        >
                           {tour.price}
-                        </span>
-                        <button className="bg-gradient-to-r from-amber-500 to-orange-600 text-white px-6 py-2 rounded-full font-medium hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]">
+                        </CardItem>
+                        <CardItem
+                          translateZ={40}
+                          as="button"
+                          className="px-6 py-2 rounded-full bg-gradient-to-r from-amber-500 to-orange-600 text-white font-medium hover:scale-105 active:scale-95 transition-all shadow-[0_0_15px_rgba(245,158,11,0.4)] hover:shadow-[0_0_25px_rgba(245,158,11,0.6)]"
+                        >
                           Book Now
-                        </button>
-                      </CardFooter>
-                      {/* Shine effect */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500 bg-gradient-to-tr from-transparent via-white/10 to-transparent skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
-                    </Card>
-                  </TiltCard>
+                        </CardItem>
+                      </div>
+                    </CardBody>
+                  </CardContainer>
                 </div>
               </CarouselItem>
             ))}

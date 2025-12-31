@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { Globe2, Users, Plane, Map } from "lucide-react";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 export default function AboutPage() {
   return (
@@ -42,7 +43,7 @@ export default function AboutPage() {
               unforgettable.
             </p>
 
-          
+
             <div className="grid grid-cols-2 gap-6 pt-4">
               {[
                 { icon: Globe2, text: "Pakistan Destinations" },
@@ -50,13 +51,16 @@ export default function AboutPage() {
                 { icon: Plane, text: "Hassle-Free Travel" },
                 { icon: Map, text: "Tailored Itineraries" },
               ].map(({ icon: Icon, text }, idx) => (
-                <div
-                  key={idx}
-                  className="flex items-center space-x-3 p-3 rounded-xl bg-card shadow-sm border border-border/60 hover:shadow-md transition"
-                >
-                  <Icon className="w-8 h-8 text-primary" />
-                  <span className="text-foreground font-medium">{text}</span>
-                </div>
+                <CardContainer key={idx} className="inter-var w-full">
+                  <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-auto rounded-xl p-3 border flex items-center space-x-3 hover:shadow-md transition">
+                    <CardItem translateZ="30">
+                      <Icon className="w-8 h-8 text-primary" />
+                    </CardItem>
+                    <CardItem translateZ="20" className="text-gray-900 dark:text-white font-medium">
+                      {text}
+                    </CardItem>
+                  </CardBody>
+                </CardContainer>
               ))}
             </div>
           </div>
@@ -95,28 +99,31 @@ export default function AboutPage() {
                 "For us, the greatest success is not measured by miles, but by the smiles we see, the friendships we help create, and the stories our travelers take home. With Travel with Aina, Pakistan is not just a place to visit — it&apos;s a place to belong.",
             },
           ].map((section, idx) => (
-            <div
-              key={idx}
-              className="bg-card/90 backdrop-blur-sm rounded-3xl shadow-md hover:shadow-lg p-10 border border-border/60 transition-all duration-300"
-            >
-              <h4 className="text-2xl font-bold bg-gradient-to-r from-primary to-amber-500 bg-clip-text text-transparent mb-4">
-                {section.title}
-              </h4>
-              {section.list ? (
-                <ul className="list-disc pl-6 space-y-2 text-foreground/90">
-                  {section.list.map((item, i) => (
-                    <li key={i}>{item}</li>
-                  ))}
-                </ul>
-              ) : (
-                <>
-                  <p className="text-foreground/90 leading-relaxed">{section.content1}</p>
-                  {section.content2 && (
-                    <p className="mt-4 text-foreground/90 leading-relaxed">{section.content2}</p>
-                  )}
-                </>
-              )}
-            </div>
+            <CardContainer key={idx} className="inter-var w-full">
+              <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-auto rounded-3xl p-10 border hover:shadow-lg transition-all duration-300">
+                <CardItem translateZ="50">
+                  <h4 className="text-2xl font-bold text-black dark:text-white mb-4">
+                    {section.title}
+                  </h4>
+                </CardItem>
+                {section.list ? (
+                  <CardItem translateZ="40" className="w-full">
+                    <ul className="list-disc pl-6 space-y-2 text-gray-800 dark:text-gray-200">
+                      {section.list.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </CardItem>
+                ) : (
+                  <CardItem translateZ="40" className="w-full">
+                    <p className="text-gray-800 dark:text-gray-200 leading-relaxed">{section.content1}</p>
+                    {section.content2 && (
+                      <p className="mt-4 text-gray-800 dark:text-gray-200 leading-relaxed">{section.content2}</p>
+                    )}
+                  </CardItem>
+                )}
+              </CardBody>
+            </CardContainer>
           ))}
         </div>
       </div>

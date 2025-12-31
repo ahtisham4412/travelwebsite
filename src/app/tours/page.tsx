@@ -2,14 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 function Tours() {
   const tours = [
@@ -72,32 +65,48 @@ function Tours() {
 
       <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {tours.map((tour, index) => (
-          <Card
-            key={index}
-            className="shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl overflow-hidden"
-          >
-            <CardHeader>
-              <CardTitle className="text-xl">{tour.title}</CardTitle>
-              <CardDescription>{tour.description}</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Image
-                src={tour.image}
-                alt={tour.title}
-                width={600}
-                height={400}
-                className="rounded-lg w-full h-52 object-cover"
-              />
-            </CardContent>
-            <CardFooter className="flex justify-between items-center">
-              <span className="text-yellow-600 font-bold text-lg">
-                {tour.price}
-              </span>
-              <button className="bg-yellow-500 text-white px-4 py-2 rounded-lg hover:bg-yellow-600 transition">
-                Book Now
-              </button>
-            </CardFooter>
-          </Card>
+          <CardContainer key={index} className="inter-var">
+            <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] border-black/[0.1] w-full h-auto rounded-xl p-6 border">
+              <CardItem
+                translateZ="50"
+                className="text-xl font-bold text-gray-900 dark:text-white"
+              >
+                {tour.title}
+              </CardItem>
+              <CardItem
+                as="p"
+                translateZ="60"
+                className="text-gray-700 dark:text-gray-300 text-sm max-w-sm mt-2"
+              >
+                {tour.description}
+              </CardItem>
+              <CardItem translateZ="100" className="w-full mt-4">
+                <Image
+                  src={tour.image}
+                  height="1000"
+                  width="1000"
+                  className="h-60 w-full object-cover rounded-xl group-hover/card:shadow-xl"
+                  alt={tour.title}
+                />
+              </CardItem>
+              <div className="flex justify-between items-center mt-10">
+                <CardItem
+                  translateZ={20}
+                  as="div"
+                  className="px-4 py-2 rounded-xl text-xs font-normal dark:text-white"
+                >
+                  <span className="text-black dark:text-white font-bold text-lg">{tour.price}</span>
+                </CardItem>
+                <CardItem
+                  translateZ={20}
+                  as="button"
+                  className="px-4 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold hover:bg-primary/90"
+                >
+                  Book Now
+                </CardItem>
+              </div>
+            </CardBody>
+          </CardContainer>
         ))}
       </div>
     </section>

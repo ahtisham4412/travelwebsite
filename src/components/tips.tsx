@@ -1,6 +1,7 @@
 "use client";
 
 import { MapPin, Compass, Camera } from "lucide-react";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 
 const tips = [
   {
@@ -32,14 +33,19 @@ export default function Tips() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {tips.map((tip, index) => (
-            <div
-              key={index}
-              className="bg-card rounded-2xl shadow-md border border-border/60 p-6 flex flex-col items-center text-center hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
-            >
-              {tip.icon}
-              <h3 className="text-lg font-semibold mt-4 mb-2 text-foreground">{tip.title}</h3>
-              <p className="text-muted-foreground">{tip.description}</p>
-            </div>
+            <CardContainer key={index} className="inter-var w-full">
+              <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-auto rounded-xl p-6 border flex flex-col items-center text-center">
+                <CardItem translateZ="40">
+                  {tip.icon}
+                </CardItem>
+                <CardItem translateZ="50" className="w-full">
+                  <h3 className="text-lg font-bold mt-4 mb-2 text-black dark:text-white">{tip.title}</h3>
+                </CardItem>
+                <CardItem translateZ="30" className="w-full">
+                  <p className="text-gray-700 dark:text-gray-300">{tip.description}</p>
+                </CardItem>
+              </CardBody>
+            </CardContainer>
           ))}
         </div>
       </div>

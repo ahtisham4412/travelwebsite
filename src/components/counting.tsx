@@ -1,5 +1,6 @@
 "use client";
 
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 
@@ -23,17 +24,20 @@ export default function Counting() {
 
       <div className="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-10 text-center relative z-10">
         {stats.map((stat, i) => (
-          <div
-            key={i}
-            className="p-8 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md shadow-2xl hover:bg-white/10 transition-all duration-500 hover:scale-105 group"
-          >
-            <h2 className={`text-6xl font-black ${stat.color} mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]`}>
-              {inView ? <CountUp end={stat.number} duration={4} /> : 0}+
-            </h2>
-            <p className="text-xl font-medium text-gray-300 group-hover:text-white transition-colors">
-              {stat.label}
-            </p>
-          </div>
+          <CardContainer key={i} className="inter-var w-full">
+            <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-auto rounded-xl p-8 border hover:scale-105 transition-transform duration-500">
+              <CardItem translateZ="50" className="w-full">
+                <h2 className={`text-6xl font-black ${stat.color} mb-2 drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]`}>
+                  {inView ? <CountUp end={stat.number} duration={4} /> : 0}+
+                </h2>
+              </CardItem>
+              <CardItem translateZ="30" className="w-full">
+                <p className="text-xl font-medium text-gray-800 dark:text-gray-200 group-hover:text-black dark:group-hover:text-white transition-colors">
+                  {stat.label}
+                </p>
+              </CardItem>
+            </CardBody>
+          </CardContainer>
         ))}
       </div>
     </section>

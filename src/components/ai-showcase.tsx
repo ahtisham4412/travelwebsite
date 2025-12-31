@@ -4,7 +4,8 @@ import { useMemo, useState } from "react";
 import { Sparkles, Send, Mountain, Umbrella, Castle, Trees, Camera, Tent } from "lucide-react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 import { cn } from "@/lib/utils";
 
 type Message = {
@@ -234,31 +235,39 @@ export function AIShowcase() {
 
           <div className="grid gap-4 sm:grid-cols-2">
             {destinations.slice(0, 4).map((idea) => (
-              <Card key={idea.id} className="overflow-hidden border-green-200 shadow-md transition hover:-translate-y-1 hover:shadow-xl">
-                <div className="relative h-36 w-full">
-                  <Image
-                    src={idea.image}
-                    alt={idea.title}
-                    fill
-                    className="object-cover"
-                    sizes="(min-width: 1024px) 300px, 50vw"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
-                </div>
-                <CardHeader className="space-y-1 pb-2">
-                  <CardTitle className="text-base text-gray-900">{idea.title}</CardTitle>
-                  <p className="text-xs text-gray-600">{idea.description}</p>
-                </CardHeader>
-                <CardContent className="text-sm font-semibold text-green-700 flex items-center justify-between">
-                  <span className="bg-green-50 px-2 py-1 rounded">{idea.price}</span>
-                  <span className="text-xs text-gray-500">{idea.location}</span>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full bg-green-600 hover:bg-green-700">
-                    Book Pakistan Tour
-                  </Button>
-                </CardFooter>
-              </Card>
+              <CardContainer key={idea.id} className="inter-var">
+                <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-auto rounded-xl p-4 border overflow-hidden">
+                  <CardItem translateZ="50" className="w-full mt-2">
+                    <div className="relative h-36 w-full rounded-xl overflow-hidden group-hover/card:shadow-xl">
+                      <Image
+                        src={idea.image}
+                        alt={idea.title}
+                        fill
+                        className="object-cover group-hover/card:scale-110 transition-transform duration-500"
+                        sizes="(min-width: 1024px) 300px, 50vw"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+                    </div>
+                  </CardItem>
+                  <CardItem translateZ="60" className="mt-4">
+                    <h3 className="text-base font-bold text-black dark:text-white">{idea.title}</h3>
+                    <p className="text-xs text-gray-700 dark:text-gray-300 mt-1">{idea.description}</p>
+                  </CardItem>
+                  <div className="flex items-center justify-between mt-4">
+                    <CardItem translateZ="40" className="bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded text-sm font-bold text-black dark:text-white">
+                      {idea.price}
+                    </CardItem>
+                    <CardItem translateZ="40" className="text-xs text-gray-600 dark:text-gray-400">
+                      {idea.location}
+                    </CardItem>
+                  </div>
+                  <CardItem translateZ="30" className="w-full mt-4">
+                    <Button className="w-full bg-green-600 hover:bg-green-700 text-white">
+                      Book Pakistan Tour
+                    </Button>
+                  </CardItem>
+                </CardBody>
+              </CardContainer>
             ))}
           </div>
 

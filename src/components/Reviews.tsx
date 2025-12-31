@@ -1,8 +1,8 @@
 "use client";
 import * as React from "react";
-import { Carousel,CarouselContent,CarouselItem } from "@/components/ui/carousel";
-import { Card, CardContent } from "@/components/ui/card";
+import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import Image from "next/image";
+import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card";
 interface Review {
   name: string;
   location: string;
@@ -13,7 +13,7 @@ const reviews: Review[] = [
   {
     name: "Ali Khan",
     location: "Hunza Valley",
-    review:"The trip to Hunza was a dream come true! The mountains, culture, and food were unforgettable.",
+    review: "The trip to Hunza was a dream come true! The mountains, culture, and food were unforgettable.",
     avatar: "https://randomuser.me/api/portraits/men/32.jpg",
   },
   {
@@ -68,9 +68,9 @@ export default function Reviews() {
                 key={index}
                 className="pl-2 md:pl-4 basis-full sm:basis-1/2 lg:basis-1/3"
               >
-                <Card className="backdrop-blur-md bg-card/80 shadow-xl border border-border/60 hover:scale-105 hover:shadow-2xl transition-all duration-300 rounded-2xl overflow-hidden">
-                  <CardContent className="p-6">
-                    <div className="flex items-center gap-4 mb-4">
+                <CardContainer className="inter-var w-full h-full">
+                  <CardBody className="bg-gradient-to-br from-amber-100 to-orange-100 dark:from-stone-800 dark:to-stone-900 border-amber-200 dark:border-amber-700/30 relative group/card dark:hover:shadow-2xl dark:hover:shadow-emerald-500/[0.1] w-full h-full rounded-2xl p-6 border shadow-xl">
+                    <CardItem translateZ="30" className="flex items-center gap-4 mb-4 w-full">
                       <Image
                         src={review.avatar}
                         alt={review.name}
@@ -79,17 +79,19 @@ export default function Reviews() {
                         className="rounded-full border-2 border-primary/40"
                       />
                       <div className="text-left">
-                        <h3 className="text-lg font-semibold text-primary">
+                        <h3 className="text-lg font-bold text-black dark:text-white">
                           {review.name}
                         </h3>
-                        <p className="text-sm text-muted-foreground">{review.location}</p>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{review.location}</p>
                       </div>
-                    </div>
-                    <p className="text-foreground/90 italic leading-relaxed">
-                      &quot;{review.review}&quot;
-                    </p>
-                  </CardContent>
-                </Card>
+                    </CardItem>
+                    <CardItem translateZ="50" className="w-full">
+                      <p className="text-gray-800 dark:text-gray-200 italic leading-relaxed">
+                        &quot;{review.review}&quot;
+                      </p>
+                    </CardItem>
+                  </CardBody>
+                </CardContainer>
               </CarouselItem>
             ))}
           </CarouselContent>
